@@ -33,3 +33,6 @@ It's likely other scanners are going to be lazy like me and not validate the sig
 ## Anything else?
 
 Careful where you post your smart card, I'm not sure I'd even recommend posting it on my static client side site, even though it's all client side, you'd have to take my word at that.
+
+
+Follow me on twitter [@insecureNature](https://twitter.com/InsecureNature)
