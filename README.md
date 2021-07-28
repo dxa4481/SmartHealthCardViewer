@@ -16,6 +16,10 @@ Here's more info about them from the [EFF](https://www.eff.org/deeplinks/2021/06
 
 They're kind of a pain because they're encoded 3 or 4 times over, it almost feels like a CTF
 
+The encoding is as follows:
+
+QR Code --> Decimal --> JWS --> Deflated zip --> JSON data
+
 [smarthealth.cards](https://smarthealth.cards) does have a portal that allows you to scan a smart healthcard, but this portal uploads your card to a server, and requirs you grant webcam access to the website to scan your card.
 
 This repo contains code that staticly client side reads a smart card and mirrors the data back to you. [It's hosted here](https://security.love/SmartHealthCardViewer/)
