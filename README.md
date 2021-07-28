@@ -18,7 +18,7 @@ They're kind of a pain because they're encoded 3 or 4 times over, it almost feel
 
 [smarthealth.cards](https://smarthealth.cards) does have a portal that allows you to scan a smart healthcard, but this portal uploads your card to a server, and requirs you grant webcam access to the website to scan your card.
 
-This repo contains code that staticly client side reads a smart card and mirrors the data back to you.
+This repo contains code that staticly client side reads a smart card and mirrors the data back to you. [It's hosted here](https://security.love/SmartHealthCardViewer/)
 
 Note: this site does not validate the card, and does not check the signature at all. It's just a data viewer.
 
