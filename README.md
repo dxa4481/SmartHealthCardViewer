@@ -1,6 +1,6 @@
 # Smart Vaccine Card Reader
 
-[security.love/smarthealthcardviewer/](https://security.love/smarthealthcardviewer/)
+[security.love/smarthealthcardviewer/](https://security.love/SmartHealthCardViewer/)
 
 ## What are SMART Health Cards?
 
