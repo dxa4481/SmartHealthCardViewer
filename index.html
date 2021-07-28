@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Smart Health Card Viewer</title>
+
+
+        <script src="rawinflate.js"></script>
+        <script src="rawdeflate.js"></script>
+        <script src="jsQR.js"></script>
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="gh-fork-ribbon.min.css">
+        <style>
+            .highlight {
+                background-color: yellow;
+            }
+        </style>
+    </head>
+
+    <body>
+
+         <a class="github-fork-ribbon right-bottom fixed" href="https://github.com/dxa4481/SmartHealthCardViewer" title="Fork me on GitHub">Fork me on GitHub</a>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h2>See your SMART Health Card vax data</h2>
+                <canvas id="myCanvas" style="display:none"></canvas>
+                <input type='file' class="form-control-file" id='file-input' />
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
+        <pre id="json"></pre>
+        <script>
+            function highlight(text) {
+              var inputText = document.getElementById("json");
+              var innerHTML = inputText.innerHTML;
+              innerHTML = innerHTML.replaceAll(text, "<span class='highlight'>" + text + "</span>")
+              inputText.innerHTML = innerHTML;
+            }
+            let fileInput = document.getElementById('file-input')
+            fileInput.onchange = function(e) {
+              var canvasElement = document.getElementById("myCanvas");
+              var ctx = canvasElement.getContext('2d'); // load context of canvas
+              var img = new Image();
+              img.src = URL.createObjectURL(e.target.files[0]); // use first selected image from input element
+              img.onload = function() {
+                ctx.canvas.width = img.width;
+                ctx.canvas.height = img.height;
+
+                ctx.drawImage(img, 0, 0); // draw the image to the canvas
+                const imageData = ctx.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "attemptBoth",
+                });
+                const b64Offset = '-'.charCodeAt(0);
+                const digitPairs = code.data.match(/(\d\d?)/g) || [];
+
+                const jws = digitPairs
+                    // for each number in array, add an offset and convert to a char in the base64 range
+                    .map((c) => String.fromCharCode(Number.parseInt(c) + b64Offset))
+                    // merge the array into a single base64 string
+                    .join('');
+                const deflated = jws.split(".")[1];
+                const rawResult = RawDeflate.inflate(atob(deflated.replace(/_/g, '/').replace(/-/g, '+')));
+                const result = JSON.parse(rawResult);
+                document.getElementById("json").textContent = JSON.stringify(result, null, 4);
+                highlight("family");
+                highlight("given");
+                highlight("birthDate");
+                highlight("occurrenceDateTime");
+                highlight("lotNumber");
+                highlight("actor");
+              }
+            }
+        </script>
+
+    </body>
+
+</html>
