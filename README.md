@@ -1,5 +1,7 @@
 # Smart Vaccine Card Reader
 
+[security.love/smarthealthcardviewer/](https://security.love/smarthealthcardviewer/)
+
 ## What are SMART Health Cards?
 
 Smart Health is an [open standard](https://spec.smarthealth.cards/) that can be used to cryptographically attest to healthcare records
